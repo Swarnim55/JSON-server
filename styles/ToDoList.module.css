@@ -1,0 +1,75 @@
+.listShow {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.listDate {
+  display: flex;
+  flex-direction: column;
+  min-height: 10rem;
+  min-width: 7rem;
+  border: 3px #fff dashed;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.listDate span {
+  margin: 0.25rem;
+}
+
+.listTask {
+  background-color: #333;
+  min-height: 5rem;
+  margin: 1rem;
+  display: flex;
+  max-width: 30rem;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.listTask span {
+  margin: 0.5rem;
+}
+.listTask .task {
+  text-align: center;
+  width: 30rem;
+  border: 1px solid #fff;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listTask .cat {
+  text-align: center;
+  width: 15rem;
+  border: 1px solid #fff;
+}
+.listTask .status {
+  text-align: center;
+  width: 12rem;
+  border: 1px solid #fff;
+}
+
+.listActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .listTask {
+    max-width: 30rem;
+    width: 10rem;
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .listTask .task {
+    width: 100%;
+  }
+}

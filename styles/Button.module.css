@@ -1,0 +1,7 @@
+.btn {
+  min-width: 10rem;
+  height: 2rem;
+  cursor: pointer;
+  margin: 1rem;
+  font-size: large;
+}

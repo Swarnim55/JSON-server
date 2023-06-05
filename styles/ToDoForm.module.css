@@ -1,0 +1,62 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.form label {
+  margin: 0.5rem;
+  color: gainsboro;
+
+  font-size: large;
+}
+
+.form input,
+.form select {
+  margin: 0.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  font-size: medium;
+}
+
+.form input[type="text"] {
+  width: 18rem;
+}
+
+.form input[type="date"] {
+  width: 15rem;
+}
+.form input[type="time"] {
+  text-align: center;
+  width: 15rem;
+}
+
+.form select {
+  text-align: center;
+  width: 15rem;
+}
+
+@media (max-width: 800px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .form input[type="text"] {
+    width: 20rem;
+  }
+
+  .form input[type="date"] {
+    width: 20rem;
+  }
+  .form input[type="time"] {
+    width: 20rem;
+  }
+
+  .form select {
+    width: 20rem;
+  }
+}
