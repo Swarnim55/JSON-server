@@ -22,7 +22,7 @@
 }
 
 .listTask {
-  background-color: #333;
+  /* background-color: #333; */
   min-height: 5rem;
   margin: 1rem;
   display: flex;
@@ -43,16 +43,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 1rem;
 }
 .listTask .cat {
   text-align: center;
   width: 15rem;
   border: 1px solid #fff;
+  border-radius: 0.5rem;
 }
 .listTask .status {
   text-align: center;
   width: 12rem;
   border: 1px solid #fff;
+  border-radius: 0.5rem;
 }
 
 .listActions {

@@ -1,7 +1,14 @@
 .btn {
   min-width: 10rem;
-  height: 2rem;
+  height: 2.5rem;
   cursor: pointer;
   margin: 1rem;
   font-size: large;
+  border-radius: 1rem;
+  border: 0px;
+}
+
+.btn:hover {
+  background-color: #333;
+  border: 1px solid #fff;
 }

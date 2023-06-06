@@ -11,10 +11,14 @@
     {
       "id": 2,
       "task": "Try to complete",
-      "date": "2023-06-05",
+      "date": "2023-07-19",
       "category": "learn",
-      "done": false
+      "done": false,
+      "time": "12:00"
     }
   ],
-  "categories": []
+  "categories": [
+    "Office",
+    "learn"
+  ]
 }
