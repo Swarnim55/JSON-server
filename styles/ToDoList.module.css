@@ -39,11 +39,15 @@
   text-align: center;
   width: 30rem;
   border: 1px solid #fff;
+
   height: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
+}
+.listTask .details {
+  display: flex;
 }
 .listTask .cat {
   text-align: center;
@@ -73,6 +77,20 @@
   }
 
   .listTask .task {
-    width: 100%;
+    width: 15rem;
+  }
+  .listTask .details {
+    display: flex;
+  }
+
+  .listTask .cat,
+  .listTask .status {
+    width: 7rem;
+  }
+
+  .listActions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

@@ -1,9 +1,11 @@
-import React, { useRef, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from '@/styles/ToDoForm.module.css';
 import Button from './UI/Button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/pages/api/api';
 import AuthContext from '@/context/context-auth';
+import Select from './UI/Select';
+import axios from 'axios';
 
 interface TodoFormData {
   id: number;
@@ -17,10 +19,27 @@ interface TodoFormData {
 const ToDoForm = (props: any) => {
   const ctx = useContext(AuthContext);
   const queryClient = useQueryClient();
-  const taskInput = useRef<HTMLInputElement | undefined>();
-  const dateInput = useRef<HTMLFormElement | undefined>();
-  const catInput = useRef<HTMLSelectElement | undefined>();
-  const timeInput = useRef<HTMLFormElement | undefined>();
+
+  const [taskInp, setTaskInp] = useState('');
+  const [dateInp, setDateInp] = useState('');
+  const [catInp, setCatInp] = useState('');
+  const [timeInp, setTimeInp] = useState('00:00');
+
+  const { data, refetch } = useQuery({
+    queryKey: ['editTask'],
+    queryFn: () =>
+      api.get(`/todo/${ctx.updateTaskId}`).then((response) => {
+        return response.data;
+      }),
+  });
+
+  useEffect(() => {
+    // setEditTaskID(ctx.updateTaskId);
+    const id = ctx.updateTaskId;
+    if (id) {
+      refetch();
+    }
+  }, [ctx.updateTaskId]);
 
   const formDataMutaion = useMutation({
     mutationFn: (formData) => {
@@ -36,45 +55,51 @@ const ToDoForm = (props: any) => {
 
     const formData: TodoFormData = {
       id: Math.ceil(Math.random() * 10000),
-      task: taskInput?.current?.value,
-      date: dateInput?.current?.value,
-      category: catInput?.current?.value,
-      time: timeInput?.current?.value,
+      task: taskInp,
+      date: dateInp,
+      category: catInp,
+      time: timeInp,
       done: false,
     };
 
+    setTaskInp('');
+    setTimeInp('00:00');
+    setDateInp('');
+    setCatInp('');
+
     formDataMutaion.mutate(formData);
   };
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['category'],
-    queryFn: () =>
-      api.get('/categories').then((res) => {
-        return res.data;
-      }),
-  });
-  if (isLoading) return 'Loading...';
-
-  if (isError) return 'An error has occured';
 
   return (
     <>
       <form className={styles.form} onSubmit={formHandler}>
         <label htmlFor="task"> Task: </label>
-        <input type="text" id="task" ref={taskInput} />
+        <input
+          type="text"
+          id="task"
+          value={taskInp}
+          onChange={(e) => setTaskInp(e.target.value)}
+        />
         <label htmlFor="date"> Date: </label>
-        <input type="date" id="date" ref={dateInput} />
+        <input
+          type="date"
+          id="date"
+          value={dateInp}
+          onChange={(e) => setDateInp(e.target.value)}
+        />
         <label htmlFor="cat"> Category:</label>
-        <select ref={catInput}>
-          <option value="">Select Category</option>
-          {data?.map((category: string) => (
-            <option value={category} key={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+
+        <Select
+          defaultValue={'Select'}
+          onChange={(e) => setCatInp(e.target.value)}
+        />
         <label htmlFor="date"> Time: </label>
-        <input type="time" id="date" ref={timeInput} />
+        <input
+          type="time"
+          id="date"
+          value={timeInp}
+          onChange={(e) => setTimeInp(e.target.value)}
+        />
         <Button type="submit">Add Task </Button>
       </form>
     </>

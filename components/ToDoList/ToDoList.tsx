@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from '@/styles/ToDoList.module.css';
 import Button from '../UI/Button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { api } from '../../pages/api/api';
+import AuthContext from '@/context/context-auth';
 
 interface Todo {
   id: number;
@@ -16,6 +17,7 @@ interface Todo {
 
 const ToDoList = () => {
   const queryClient = useQueryClient();
+  const ctx = useContext(AuthContext);
 
   const deleteTaskMutation = useMutation({
     mutationFn: (id) => {
@@ -28,6 +30,10 @@ const ToDoList = () => {
 
   const deleteTaskHandler = (id: number) => {
     deleteTaskMutation.mutate(id);
+  };
+
+  const editTaskHandler = (id: number) => {
+    ctx.setUpdateTaskID(id);
   };
 
   const { data, isLoading, isError } = useQuery({
@@ -57,17 +63,19 @@ const ToDoList = () => {
               <span>{toDoDate}</span>
               <span style={{ fontSize: '2rem' }}>{toDoMonth}</span>
               <span>{toDoYear}</span>
-              <span>10:00 AM</span>
+              <span>{list.time}</span>
             </div>
             <div className={styles.listTask}>
               <span className={styles.task}> {list.task} </span>
-              <span className={styles.cat}> {list.category}</span>
-              <span className={styles.status}>
-                {' '}
-                {list.done ? 'Complete' : 'Pending'}
-              </span>
+              <div className={styles.details}>
+                <span className={styles.cat}> {list.category}</span>
+                <span className={styles.status}>
+                  {' '}
+                  {list.done ? 'Complete' : 'Pending'}
+                </span>
+              </div>
               <div className={styles.listActions}>
-                <Button>EDIT</Button>
+                <Button onClick={() => editTaskHandler(list.id)}>EDIT</Button>
                 <Button onClick={() => deleteTaskHandler(list.id)}>
                   DELETE
                 </Button>
